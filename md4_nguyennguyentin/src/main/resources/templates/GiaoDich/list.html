@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh Sách Giao Dịch</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-4">
+
+<h2 class="text-center mb-4">Danh Sách Giao Dịch</h2>
+
+
+<form action="#" th:action="@{/giao-dich/search}" method="get" class="row g-2 mb-3">
+    <div class="col-md-4">
+        <input type="text" name="tenKhachHang" class="form-control" placeholder="Tên khách hàng">
+    </div>
+    <div class="col-md-4">
+        <input type="text" name="loaiDichVu" class="form-control" placeholder="Loại dịch vụ">
+    </div>
+    <div class="col-md-4">
+        <button type="submit" class="btn btn-primary w-100">🔍 Tìm kiếm</button>
+    </div>
+</form>
+
+
+<table class="table table-hover table-bordered">
+    <thead class="table-dark text-center">
+    <tr>
+        <th>Mã Giao Dịch</th>
+        <th>Tên Khách Hàng</th>
+        <th>Loại Dịch Vụ</th>
+        <th>Ngày Giao Dịch</th>
+        <th>Đơn Giá (VND/m2)</th>
+        <th>Diện Tích (m2)</th>
+        <th>Hành Động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="giaoDich : ${giaoDichList}" class="text-center">
+        <td th:text="${giaoDich.maGiaoDich}"></td>
+        <td th:text="${giaoDich.khachHang.tenKhachHang}"></td>
+        <td th:text="${giaoDich.loaiDichVu}"></td>
+        <td th:text="${giaoDich.ngayGiaoDich}"></td>
+        <td th:text="${giaoDich.donGia}"></td>
+        <td th:text="${giaoDich.dienTich}"></td>
+        <td>
+            <a th:href="@{/giao-dich/{id}(id=${giaoDich.id})}" class="btn btn-info btn-sm">👁 Chi tiết</a>
+            <a th:href="@{/giao-dich/delete/{id}(id=${giaoDich.id})}" class="btn btn-danger btn-sm"
+               onclick="return confirm('Bạn có chắc chắn muốn xóa?');">🗑 Xóa</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<div class="text-center mt-3">
+    <a href="/giao-dich/add" class="btn btn-success">➕ Thêm Mới</a>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
