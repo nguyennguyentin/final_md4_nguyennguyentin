@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm mới giao dịch nhà đất</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>Thêm mới giao dịch</h2>
+        <form th:action="@{/giaodich/create}" method="post" th:object="${giaoDich}">
+            <div class="mt-3">
+                <label class="form-label">Mã giao dịch</label>
+                <input type="text" class="form-control" th:field="*{maGiaoDich}" required>
+            </div>
+
+            <div class="mt-3">
+                <label class="form-label">Tên khách hàng</label>
+                <select class="form-select" th:field="*{khachHang}">
+                    <option value="">- Chọn khách hàng -</option>
+                    <option th:each="kh : ${khachHangList}" th:value="${kh.maKhachHang}" th:text="${kh.tenKhachHang}"></option>
+                </select>
+            </div>
+
+            <div class="mt-3">
+                <label class="form-label">Loại bất động sản</label>
+                <select class="form-select" th:field="*{loaiDichVu}">
+                    <option th:each="ldv : ${loaiDichVuList}" th:value="${ldv.maLoaiDichVu}" th:text="${ldv.tenLoaiDichVu}"></option>
+                </select>
+            </div>
+
+            <div class="mt-3">
+                <label class="form-label">Ngày giao dịch</label>
+                    <input type="date" class="form-control" th:field="*{ngayGiaoDich}">
+            </div>
+
+            <div class="mt-3">
+                <label class="form-label">Đơn giá (VND/m2)</label>
+                <input type="number" class="form-control" th:field="*{donGia}" required>
+            </div>
+
+            <div class="mt-3">
+                <label class="form-label">Diện tích (m2)</label>
+                <input type="number" class="form-control" th:field="*{dienTich}" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Lưu</button>
+            <a th:href="@{/giaodich/list}" class="btn btn-secondary">Hủy</a>
+        </form>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -1,27 +1,38 @@
-package org.example.md4_nguyennguyentin.entity;
+    package org.example.md4_nguyennguyentin.entity;
+    import jakarta.persistence.*;
+    import lombok.*;
+    import org.springframework.format.annotation.DateTimeFormat;
 
-import jakarta.persistence.*;
-import lombok.*;
+    import java.util.Date;
 
-import java.util.Date;
+    @Entity
+    @Table(name = "giao_dich")
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public class GiaoDich {
+        @Id
+        @Column(name = "ma_giao_dich", unique = true, nullable = false)
+        private String maGiaoDich;
 
-@Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-@Table(name = "giao_dich")
-public class GiaoDich {
-    @Id
-    private String maGiaoDich;
+        @ManyToOne
+        @JoinColumn(name = "ma_khach_hang", nullable = false)
+        private KhachHang khachHang;
 
-    @ManyToOne
-    @JoinColumn(name = "khach_hang_id", nullable = false)
-    private KhachHang khachHang;
+        @Temporal(TemporalType.DATE)
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        @Column(nullable = false)
+        private Date ngayGiaoDich;
 
-    private String loaiDichVu;
-    private Date ngayGiaoDich;
-    private double donGia;
-    private double dienTich;
-}
+        @ManyToOne
+        @JoinColumn(name = "ma_loai_dich_vu", nullable = false)
+        private LoaiDichVu loaiDichVu;
+
+        @Column(nullable = false)
+        private Double donGia;
+
+        @Column(nullable = false)
+        private Double dienTich;
+    }
+
